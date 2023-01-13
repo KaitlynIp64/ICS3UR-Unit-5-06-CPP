@@ -8,46 +8,38 @@
 #include <iostream>
 #include <string>
 
-float roundNumber(float &decimalNum, int decimalPlaces) {
-    // This function rounds off numbers
-    float roundedOff;
-    int tempInt;
-
-    // pow() is a power function
-    roundedOff = decimalNum * pow(10, decimalPlaces);
-    roundedOff = (roundedOff + 0.5);
-    // static_cast converts ints and floats
-    roundedOff = static_cast<int>(roundedOff);
-    roundedOff = roundedOff / pow(10, decimalPlaces);
-
-    decimalNum = roundedOff;
-
-    return decimalNum;
+float decimalConverter(float &decimal, int &decimalPlaces) {
+    // Converts a string to hex values
+    decimal = decimal * pow(10.0, decimalPlaces) + 0.5;
+    decimal = trunc(decimal);
+    decimal = decimal / pow(10.0, decimalPlaces);
 }
 
 int main() {
-    std::string userNumStr;
-    std::string decimalPlacesStr;
+    // Gets the string and prints the full hex value
+
+    std::string strDecimal;
+    std::string strDecimalPlaces;
+    float decimal;
     int decimalPlaces;
-    float userNum;
-    float roundedNum;
 
     std::cout << "Enter a decimal: ";
-    std::cin >> userNumStr;
-    std::cout << "Enter desired decimal places to round to: ";
-    std::cin >> decimalPlacesStr;
+    std::cin >> strDecimal;
+    std::cout << "Enter desired decimal places you want to round to: ";
+    std::cin >> strDecimalPlaces;
 
     try {
-        userNum = std::stof(userNumStr);
-        decimalPlaces = std::stoi(decimalPlacesStr);
+        decimal = std::stof(strDecimal);
+        decimalPlaces = std::stoi(strDecimalPlaces);
 
-        // calls function
-        roundNumber(userNum, decimalPlaces);
+        // call functions
+        decimalConverter(decimal, decimalPlaces);
 
-        std::cout << "Rounded number: " << userNum << std::endl;
+        std::cout << "Rounded number: " << decimal << "." << std::endl;
     } catch (std::invalid_argument) {
-        std::cout << "That is not a valid input." << std::endl;
+        std::cout << "That is not a valid input.";
     }
 
+    std::cout << std::endl;
     std::cout << "\nDone." << std::endl;
 }
